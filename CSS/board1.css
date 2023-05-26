@@ -1,0 +1,153 @@
+/* 전체 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eee;
+
+  }
+  
+  body:not(h1){
+    margin-right : 12%;
+    margin-left : 12%;
+    margin-top : 1%;
+  }
+  
+  /* 제목 스타일 */
+  h1 {
+    color: black;
+    text-align: left;
+    margin: 20px 0;
+  }
+  
+  /* 테이블 스타일 */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 테이블 헤더 스타일 */
+  thead {
+    background-color: black;
+    color: white;
+  }
+  
+  /* 테이블 셀 스타일 */
+  td, th {
+    padding: 10px;
+    text-align: left;
+    border: none;
+  }
+  th {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  /* id 열 셀 스타일 */
+  #board_id {
+    width: 5%;
+  }
+  
+  /* 제목 열 셀 스타일 */
+  #title {
+    width: 50%;
+  }
+  
+  /* 작성자 열 셀 스타일 */
+  #writer {
+    width: 15%;
+  }
+  
+  /* 작성날짜 열 셀 스타일 */
+  #regdate {
+    width: 15%;
+    font-size: 12px;
+    color: gray;
+  }
+  
+  /* 수정날짜 열 셀 스타일 */
+  #updatedate {
+    width: 15%;
+    font-size: 12px;
+    color: gray;
+  }
+  
+  /* 홀수 행 배경색 */
+  tbody tr:nth-child(odd) {
+    background-color: white;
+  }
+  
+  /* 짝수 행 배경색 */
+  tbody tr:nth-child(even) {
+    background-color: #F5F5F5;
+  }
+  
+  /* 제목 링크 스타일 */
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  /* 테이블 경계선 스타일 */
+  table, thead, tbody, tr {
+    border: none;
+  }
+  /* 검색 영역 스타일 */
+  #search {
+    margin-bottom: 20px;
+}
+
+#target, #keyword, #search_btn {
+    padding: 5px;
+    font-size: 14px;
+}
+
+#search_btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px; /* 검색 버튼의 둥글기 정도 설정 */
+}
+
+/* 페이지 링크 스타일 */
+#page {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#page a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+#page a:hover {
+    background-color: #555;
+}
+  /* 마우스 호버 스타일 */
+  tbody tr:hover {
+    background-color: #E0E0E0;
+  }
+  .write-box {
+    float: right;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #222;
+    margin-bottom: 20px;
+}
+
+.write-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.write-link:hover {
+    color: #ccc;
+}

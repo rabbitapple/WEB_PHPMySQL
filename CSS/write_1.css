@@ -1,0 +1,70 @@
+/* 전체 폰트 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eee;
+  }
+  
+  /* 제목 스타일 */
+  h1 {
+    color: black;
+    text-align: left;
+    margin: 20px 0;
+  }
+  
+  h2 {
+    color: black;
+    text-align: left;
+    width: 80%;
+  }
+  
+  /* 컨텐츠 영역 스타일 */
+  #content {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* 입력 필드 스타일 */
+  .text-field {
+    width: 98%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    }
+  
+  /* 제출 버튼 스타일 */
+  .submit-btn {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #555;
+  }
+  
+  /* 링크 스타일 */
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+ 
+  #input_content {
+    height: 250px; /* #input_content의 높이를 높게 조정 */
+    vertical-align: top;
+    word-wrap: break-word;
+  }
+  body:not(h1){
+    margin-right : 12%;
+    margin-left : 12%;
+    margin-top : 1%;
+  }
