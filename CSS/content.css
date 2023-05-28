@@ -95,3 +95,7 @@ a:not(#change a) {
     color: #888;
     text-decoration: none;
 }
+#addfile {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }

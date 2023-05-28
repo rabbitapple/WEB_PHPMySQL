@@ -46,6 +46,25 @@ $content = mysqli_fetch_assoc($content_result);
         <?php echo ($content['content']); ?>
     </div>
     <hr>
+            <!-- 게시판에서 파일 목록 표시 -->
+    <div id='addfile'>첨부파일</div>
+    <?php
+    // 파일 목록을 데이터베이스에서 가져와서 반복적으로 출력
+    $sql = "SELECT * FROM board1_file WHERE boardNO='1' AND contentNO='$ID_NUM'";
+    $result_file = mysqli_query($con, $sql);
+
+    while ($row = mysqli_fetch_assoc($result_file)) {
+        $fileId = $row['id'];
+        $filename = $row['filename'];
+        $filesize = $row['filesize'];
+
+        echo "<div id='filelist'><a href='/nk/dawnload_file.php?file_id={$fileId}'> - {$filename} ({$filesize}KB)</a></div>";
+
+
+    }
+    ?>
+    </table>
+    <hr>
     <form>
         <div id = 'ui'> 
             <a id = 'before' href='/nk/conent.php/?id=<?php echo $ID_NUM-1 ?>'> 이전글 </a>
