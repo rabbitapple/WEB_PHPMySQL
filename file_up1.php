@@ -32,6 +32,11 @@ $uploader = $_SESSION["name"];
 $boardNO = "1";
 $contentNO = $id; //upload_content_1.php에서 정의
 
+if(strlen($filename) >= "25"){
+    echo "<script> alert('파일 이름의 길이는 확장자명 포함 25자 이내여야 합니다.'); 
+    window.history.back();
+    </script>"; 
+}
 
 
 // MySQL 데이터베이스 연결 및 파일 정보 저장
@@ -48,7 +53,9 @@ if ($con->query($sql) === TRUE) {
     $saveFile = $targetDir . $file_id . "." . pathinfo($targetFile,PATHINFO_EXTENSION); //저장될 파일명 및 디렉토리
 
 } else {
-    echo "Error: " . $sql . "<br>" . $con->error;
+    echo "<script> alert('error [0]'); 
+    window.history.back();
+    </script>"; 
 }
 
 // MySQL 연결 종료
