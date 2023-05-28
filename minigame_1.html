@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>숫자 맞추기 게임</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      margin-top: 100px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      color: #777;
+    }
+
+    input {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>숫자 맞추기 게임</h1>
+    <p>1부터 100 사이의 숫자를 맞춰보세요.</p>
+    <input type="number" id="guess" min="1" max="100" placeholder="숫자입력">
+    <button onclick="checkGuess()">제출</button>
+    <p class="message" id="message"></p>
+  </div>
+
+  <script>
+    // 정답 숫자 생성
+    const answer = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    function checkGuess() {
+      const guessInput = document.getElementById('guess');
+      const guess = parseInt(guessInput.value);
+
+      if (isNaN(guess)) {
+        setMessage('올바른 숫자를 입력하세요.', 'red');
+      } else if (guess < 1 || guess > 100) {
+        setMessage('1부터 100 사이의 숫자를 입력하세요.', 'red');
+      } else {
+        attempts++;
+        if (guess === answer) {
+          setMessage(`축하합니다! ${attempts}번만에 숫자를 맞추셨습니다.`, 'green');
+          guessInput.disabled = true;
+        } else {
+          let message;
+          if (guess < answer) {
+            message = '더 큰 숫자를 입력하세요.';
+          } else {
+            message = '더 작은 숫자를 입력하세요.';
+          }
+          setMessage(message, 'blue');
+        }
+      }
+
+      guessInput.value = '';
+      guessInput.focus();
+    }
+
+    function setMessage(message, color) {
+      const messageElement = document.getElementById('message');
+      messageElement.textContent = message;
+      messageElement.style.color = color;
+    }
+  </script>
+</body>
+</html>
