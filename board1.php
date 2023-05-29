@@ -4,6 +4,8 @@ require_once 'tool/db_conn.php';
 
 $target=$_GET['target'];
 $keyword=$_GET['keyword'];
+
+
 if(isset($_GET["page"])){
     $page=$_GET['page'];
     $read=($page - 1) * 10;
@@ -13,18 +15,31 @@ if(isset($_GET["page"])){
 
 if(isset($_GET["target"])&&isset($_GET["keyword"])){
     if($_GET["target"]==="all"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE title LIKE '%" . $_GET['keyword'] . "%' OR writer LIKE '%" . $_GET['keyword'] . "%' OR content LIKE '%" . $_GET['keyword'] . "%' ORDER BY board_id DESC LIMIT 10 OFFSET " . $read;
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE title LIKE ? OR writer LIKE ? OR content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $stmt = $con -> prepare($list_board_1_query);
+        $stmt -> bind_param('sssi', $keyword, $keyword, $keyword, $read);               
     }elseif($_GET["target"]==="title"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE title LIKE '%" . $_GET['keyword'] . "%' ORDER BY board_id DESC LIMIT 10 OFFSET " . $read;
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE title LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $stmt = $con -> prepare($list_board_1_query);
+        $stmt -> bind_param('si', $keyword, $read);     
     }elseif($_GET["target"]==="content"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE writer LIKE '%" . $_GET['keyword'] . "%' ORDER BY board_id DESC LIMIT 10 OFFSET " . $read;
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE writer LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $stmt = $con -> prepare($list_board_1_query);
+        $stmt -> bind_param('si', $keyword, $read); 
     }elseif($_GET["target"]==="writer"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE content LIKE '%" . $_GET['keyword'] . "%' ORDER BY board_id DESC LIMIT 10 OFFSET " . $read;
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $stmt = $con -> prepare($list_board_1_query);
+        $stmt -> bind_param('si', $keyword, $read); 
     }
 }else {
-    $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 ORDER BY board_id DESC LIMIT 10 OFFSET " .$read; 
+    $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 ORDER BY board_id DESC LIMIT 10 OFFSET ?"; 
+    $stmt = $con -> prepare($list_board_1_query);
+    $stmt -> bind_param('i', $read); 
 }
-$list_board_1_all = mysqli_query($con, $list_board_1_query);
+
+$stmt->execute();
+$board1_result = $stmt -> get_result();
+$list_board_1_all = $board1_result -> fetch_assoc();
 ?>
 
 
@@ -68,7 +83,7 @@ $list_board_1_all = mysqli_query($con, $list_board_1_query);
         </thead>
         <tbody>
             <?php
-                while ($list_board_1 = mysqli_fetch_array($list_board_1_all)) {
+                while ($list_board_1 = $board1_result -> fetch_assoc()) {
                     $board_id = $list_board_1['board_id'];
                     $writer = $list_board_1['writer'];
                     $title = $list_board_1['title'];
@@ -91,19 +106,30 @@ $list_board_1_all = mysqli_query($con, $list_board_1_query);
     <?php
     if(isset($_GET["target"])&&isset($_GET["keyword"])){
         if($_GET["target"]==="all"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE title LIKE '%" . $keyword . "%' OR writer LIKE '%" . $keyword . "%' OR content LIKE '%" . $keyword . "%'";            
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE title LIKE ? OR writer LIKE ? OR content LIKE ?";            
+            $stmt = $con -> prepare($total_records_query);
+            $stmt -> bind_param('sss', $keyword, $keyword, $keyword); 
         }elseif($_GET["target"]==="title"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE title LIKE '%" . $keyword . "%'";
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE title LIKE ?";
+            $stmt = $con -> prepare($total_records_query);
+            $stmt -> bind_param('s', $keyword); 
         }elseif($_GET["target"]==="content"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1  WHERE writer LIKE '%" . $keyword . "%'";
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_1  WHERE writer LIKE ?";
+            $stmt = $con -> prepare($total_records_query);
+            $stmt -> bind_param('s', $keyword); 
         }elseif($_GET["target"]==="writer"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE content LIKE '%" . $keyword . "%'";
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE content LIKE '?";
+            $stmt = $con -> prepare($total_records_query);
+            $stmt -> bind_param('s', $keyword); 
         }
     }else {
         $total_records_query = "SELECT COUNT(*) AS total FROM board_1";
+        $stmt = $con -> prepare($total_records_query);        
     }
-    $total_records_result = mysqli_query($con, $total_records_query);
-    $total_records = mysqli_fetch_assoc($total_records_result)['total'];
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $total_records = $row['total'];
     $total_pages= ceil($total_records / 10); 
 
 

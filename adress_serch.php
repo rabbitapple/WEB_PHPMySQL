@@ -8,19 +8,29 @@ if (isset($_GET['adress'])) {
     $ad_count=count($adress_arr);
     
     if ($ad_count ==1) {
-        $data_adress = "SELECT * FROM adress_kr WHERE DORO LIKE '%".$adress_arr[$ad_count-1]."%'";
-    } elseif ($ad_count == 2) {
-        $data_adress = "SELECT * FROM adress_kr WHERE DORO LIKE '%".$adress_arr[$ad_count-2]."%' AND BUILD_NO1 LIKE '%".$adress_arr[$ad_count-1]."%'";
+        $data_adress = "SELECT * FROM adress_kr WHERE DORO LIKE ?";
+        $stmt_da = $con -> prepare($data_adress);
+        $ad1 = '%'.$adress_arr[$ad_count-1].'%';
+        $stmt_da -> bind_param('s', $ad1);
+        
 
+
+    } elseif ($ad_count == 2) {
+        $data_adress = "SELECT * FROM adress_kr WHERE DORO LIKE ?";
+        $stmt_da = $con -> prepare($data_adress);
+        $ad1 = '%'.$adress_arr[$ad_count-2].'%';
+        $ad2 = '%'.$adress_arr[$ad_count-1].'%';
+        $stmt_da -> bind_param('ss', $ad1, $ad2);
+        
     } else {
         echo("도로명과 도로번호만 입력해주세요.");
     }
     ini_set('memory_limit', '512M');
 
     
-   
-    $data_adress_result = mysqli_query($con, $data_adress);
-    $data_adress = mysqli_fetch_array($data_adress_result);
+    $stmt_da->execute();
+    $data_adress_result = $stmt_da -> get_result();
+    $data_adress = $data_adress_result -> fetch_assoc();
 }
 ?>
 
@@ -43,7 +53,7 @@ if (isset($_GET['adress'])) {
  
     <table>
 <?php
-    while($adress_visual = mysqli_fetch_array($data_adress_result)){
+    while($adress_visual = $data_adress_result -> fetch_assoc()){
         $full_adress = $adress_visual['SIDO']." ".$adress_visual['SIGUNGU']." ".$adress_visual['DORO']." ".$adress_visual['BUILD_NO1']." ".$adress_visual['BUILD_NM']; ?>
         <tr>
             <td><a href="ad_in.php?full_adress=<?=$full_adress?>"><?=$full_adress?></a></td>

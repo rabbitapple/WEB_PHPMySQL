@@ -1,7 +1,7 @@
 <!-- upload_content_1.php -->
 <?php
 session_start();
-// require_once('tool/chack_er.php');
+require_once('tool/chack_er.php');
 
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     require_once('tool/db_conn.php');    //db연결
@@ -11,7 +11,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     $content = $_POST['content'];
     $writer = $_SESSION['name']; 
 
-    $upload_query = "INSERT INTO board_1 (writer, title, content, regdate) VALUES('$writer', '$title', '$content', NOW())"; //쿼리문
+    $upload_query = "INSERT INTO board_1 (writer, title, content, regdate) VALUES(?, ?, ?, NOW())"; //쿼리문
+    $stmt_uq = $con -> prepare($upload_query);
+    $stmt_uq -> bind_param('sss', $writer, $title, $content);
+    
     
     //글자수 제한
     if(strlen($title) >= 50){
@@ -26,7 +29,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     
 
     //게시글 업로드
-    if (mysqli_query($con, $upload_query)) {        
+    if ($stmt_uq -> execute()) {        
         $id = mysqli_insert_id($con); // AUTO_INCREMENT로 생성된 primary key 값을 가져옴
 
 

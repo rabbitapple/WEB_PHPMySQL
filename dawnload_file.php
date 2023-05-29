@@ -3,10 +3,13 @@ $file_id = $_GET['file_id'];
 
 //db 연결
 require_once "tool/db_conn.php";
-require_once 'tool/chack_er.php';
-$file_query = "SELECT * FROM board1_file WHERE id='$file_id'";
-$file_result = mysqli_query($con, $file_query);
-$file_row = mysqli_fetch_assoc($file_result);
+// require_once 'tool/chack_er.php';
+$file_query = "SELECT * FROM board1_file WHERE id=?";
+$stmt = $con -> prepare($file_query);
+$stmt -> bind_param('i', $file_id);
+$stmt -> execute();
+$file_result = $stmt -> get_result();
+$file_row = $file_result -> fetch_assoc();
 
 // 다운로드할 파일의 경로 및 파일명
 $pathinfo = pathinfo($file_row['filename'],PATHINFO_EXTENSION);

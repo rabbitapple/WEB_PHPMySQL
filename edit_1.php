@@ -1,7 +1,7 @@
 <!-- edit_1.php -->
 <?php
 session_start();
-require_once 'tool/chack_er.php';
+// require_once 'tool/chack_er.php';
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     if (isset($_GET['id'])) {    
         require_once 'tool/db_conn.php';
@@ -9,9 +9,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
         $ID_NUM=$_GET['id'];
         $NAME_S=$_SESSION['name'];
 
-        $content_query = "SELECT * FROM board_1 WHERE board_id='$ID_NUM'";
-        $content_result = mysqli_query($con, $content_query);
-        $content_row = mysqli_fetch_assoc($content_result);
+        $content_query = "SELECT * FROM board_1 WHERE board_id=?";
+        $stmt = $con -> prepare($content_query);
+        $stmt -> bind_param('i', $ID_NUM);
+        $stmt -> execute();
+        $content_result = $stmt -> get_result();
+        $content_row = $content_result -> fetch_assoc();
+
         if (mysqli_num_rows($content_result) === 0){
             echo "<script>
             alert('글이 존재하지 않습니다.');

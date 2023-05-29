@@ -9,14 +9,18 @@ if (isset($_GET['id'])) {
     echo "<a href='/nk/board1.php'>돌아가기</a>";
     
 }
-$content_query = "SELECT * FROM board_1 WHERE board_id='$ID_NUM'";
-$content_result = mysqli_query($con, $content_query);
+$content_query = "SELECT * FROM board_1 WHERE board_id=?";
+$stmt = $con -> prepare($content_query);
+$stmt -> bind_param('i', $ID_NUM);
+$stmt -> execute();
+$content_result = $stmt -> get_result();
+
 if (mysqli_num_rows($content_result) == 0){
     echo '<script>
     alert("글이 존재하지 않습니다.");
     window.location.href="/nk/board1.php";</script>';
 }
-$content = mysqli_fetch_assoc($content_result);
+$content = $content_result -> fetch_assoc();
 ?>
 
 
@@ -50,10 +54,13 @@ $content = mysqli_fetch_assoc($content_result);
     <div id='addfile'>첨부파일</div>
     <?php
     // 파일 목록을 데이터베이스에서 가져와서 반복적으로 출력
-    $sql = "SELECT * FROM board1_file WHERE boardNO='1' AND contentNO='$ID_NUM'";
-    $result_file = mysqli_query($con, $sql);
+    $sql = "SELECT * FROM board1_file WHERE boardNO='1' AND contentNO=?";
+    $stmtf = $con -> prepare($sql);
+    $stmtf -> bind_param('i', $ID_NUM);
+    $stmtf -> execute();
+    $result_file = $stmtf -> get_result();
 
-    while ($row = mysqli_fetch_assoc($result_file)) {
+    while ($row = $result_file -> fetch_assoc()) {
         $fileId = $row['id'];
         $filename = $row['filename'];
         $filesize = $row['filesize'];
