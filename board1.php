@@ -84,11 +84,11 @@ $list_board_1_all = $board1_result -> fetch_assoc();
         <tbody>
             <?php
                 while ($list_board_1 = $board1_result -> fetch_assoc()) {
-                    $board_id = $list_board_1['board_id'];
-                    $writer = $list_board_1['writer'];
-                    $title = $list_board_1['title'];
-                    $regdate = $list_board_1['regdate'];
-                    $updatedate = $list_board_1['updatedate'];?>
+                    $board_id = htmlspecialchars($list_board_1['board_id']);
+                    $writer = htmlspecialchars($list_board_1['writer']);
+                    $title = htmlspecialchars($list_board_1['title']);
+                    $regdate = htmlspecialchars($list_board_1['regdate']);
+                    $updatedate = htmlspecialchars($list_board_1['updatedate']);?>
 
                 
 

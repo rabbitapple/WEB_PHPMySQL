@@ -21,6 +21,10 @@ if (mysqli_num_rows($content_result) == 0){
     window.location.href="/nk/board1.php";</script>';
 }
 $content = $content_result -> fetch_assoc();
+
+$writer = htmlspecialchars($content['writer']);
+$title = htmlspecialchars($content['title']);
+$content_he = htmlspecialchars($content['content']);
 ?>
 
 
@@ -34,10 +38,10 @@ $content = $content_result -> fetch_assoc();
 </head>
 <body>
     <h1><a href="/nk/index.php">IQ Spoofing</a></h1>
-    <h2><?php echo ($content['title']);?></h2>   
+    <h2><?php echo ($title);?></h2>   
     <hr>
     <p>        
-        <span id="writer"><?php echo $content['writer']; ?></span>
+        <span id="writer"><?php echo $writer; ?></span>
         <span id="change"><?php if ($_SESSION['name']===$content['writer']){echo '<a href="/nk/edit_1.php?id='. $content['board_id'] .'">수정</a>';} ?></span>
         <span id="change"><?php if ($_SESSION['name']===$content['writer']){echo '<a href="/nk/delete_content.php?id='. $content['board_id'] .'">삭제</a>';} ?></span>
         <span id="date">작성일: <?php echo $content['regdate']; ?></span>
@@ -47,7 +51,7 @@ $content = $content_result -> fetch_assoc();
     </p>
     <hr>
     <div id = 'content'>
-        <?php echo ($content['content']); ?>
+        <?php echo ($content_he); ?>
     </div>
     <hr>
             <!-- 게시판에서 파일 목록 표시 -->
@@ -62,7 +66,7 @@ $content = $content_result -> fetch_assoc();
 
     while ($row = $result_file -> fetch_assoc()) {
         $fileId = $row['id'];
-        $filename = $row['filename'];
+        $filename = htmlspecialchars($row['filename']);
         $filesize = $row['filesize'];
 
         echo "<div id='filelist'><a href='/nk/dawnload_file.php?file_id={$fileId}'> - {$filename} ({$filesize}KB)</a></div>";

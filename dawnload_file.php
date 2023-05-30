@@ -34,7 +34,7 @@ if (file_exists($filePath)) {
     exit;
 } else {
     // 파일이 존재하지 않는 경우 처리할 내용
-    echo "<scrpt> alert('파일을 찾을 수 없습니다.');
+    echo "<script> alert('파일을 찾을 수 없습니다.');
     window.history.back();
     </script>";
 }
