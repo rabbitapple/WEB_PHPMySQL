@@ -1,12 +1,13 @@
 <?php
-$file_id = $_GET['file_id'];
+$board_id = $_GET['board_id'];
+$boardNO="1";
 
 //db 연결
 require_once "tool/db_conn.php";
 // require_once 'tool/chack_er.php';
-$file_query = "SELECT * FROM board1_file WHERE id=?";
+$file_query = "SELECT * FROM board1_file WHERE boardNO=? AND contentNO=?";
 $stmt = $con -> prepare($file_query);
-$stmt -> bind_param('i', $file_id);
+$stmt -> bind_param('ii', $boardNO, $board_id);
 $stmt -> execute();
 $file_result = $stmt -> get_result();
 $file_row = $file_result -> fetch_assoc();

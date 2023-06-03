@@ -18,6 +18,11 @@ if(empty($_FILES["fileToUpload"]['name'])) {
         $uploadOk = 0;
     }
 
+    // NULL byte 탐지
+    if(strpos($targetfile, "\0")){
+        $uploadOk = 0;
+    }
+
     // 파일 업로드 실행여부 검사
     if ($uploadOk == 0) {
         echo "<script> alert('error [0]'); 

@@ -69,7 +69,7 @@ $content_he = htmlspecialchars($content['content']);
         $filename = htmlspecialchars($row['filename']);
         $filesize = $row['filesize'];
 
-        echo "<div id='filelist'><a href='/nk/dawnload_file.php?file_id={$fileId}'> - {$filename} ({$filesize}KB)</a></div>";
+        echo "<div id='filelist'><a href='/nk/dawnload_file.php?board_id={$content['board_id']}'> - {$filename} ({$filesize}KB)</a></div>";
 
 
     }
