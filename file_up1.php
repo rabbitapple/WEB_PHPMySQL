@@ -1,3 +1,4 @@
+<!-- file_up1.php -->
 <?php
 
 $targetDir = "uploads/"; // 업로드된 파일이 저장될 디렉토리 경로
@@ -14,7 +15,9 @@ if(empty($_FILES["fileToUpload"]['name'])) {
     // 파일 유형 검사 (예시: 이미지 파일만 업로드 가능하도록 제한)
     $imageFileType = strtolower(pathinfo($targetFile,PATHINFO_EXTENSION)); // 확장자 추출 및 소문자 변환
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif" ) {
-        echo "Only JPG, JPEG, PNG & GIF files are allowed.";
+        echo "<script> alert('JPG, JPEG, PNG & GIF파일만 업로드 가능합니다.'); 
+        window.history.back();
+        </script>";
         $uploadOk = 0;
     }
 
@@ -22,6 +25,14 @@ if(empty($_FILES["fileToUpload"]['name'])) {
     if(strpos($targetfile, "\0")){
         $uploadOk = 0;
     }
+
+    //파일 크기 제한
+    $maxFileSize = 1048576; // 1MB 제한
+    if ($_FILES['fileToUpload']['size'] > $maxFileSize) {
+    echo "<script> alert('파일 크기가 제한을 초과했습니다.'); 
+    window.history.back();
+    </script>";
+    }   
 
     // 파일 업로드 실행여부 검사
     if ($uploadOk == 0) {
