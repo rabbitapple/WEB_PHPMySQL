@@ -2,6 +2,7 @@
 <?php
 session_start();
 // require_once 'tool/chack_er.php';
+require_once "tool/csrftoken_generater.php";
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     if (isset($_GET['id'])) {    
         require_once 'tool/db_conn.php';
@@ -71,6 +72,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             <hr>
             <textarea  name="content" class="text-field" placeholder="내용을 입력해주세요." id="input_content" required rows="4" cols="40"><?php echo $content;?> </textarea>
             <hr>
+            <input type="hidden" id="csrftoken" name="csrftoken" value="<?php echo token_generat(); ?>">     
             <input type="submit" value="저장" class="submit-btn">
         </form>
     </div>

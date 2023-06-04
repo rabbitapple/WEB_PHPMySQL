@@ -2,6 +2,16 @@
 <?php
 session_start();
 // require_once 'tool/chack_er.php';
+require_once "tool/csrftoken_test.php";
+
+if(token_test()){
+
+}else{
+    echo "<script> alert('ERROR[0]');
+    window.history.back();</script>";
+}
+
+
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     if (isset($_GET['id'])) {    
         require_once 'tool/db_conn.php';
