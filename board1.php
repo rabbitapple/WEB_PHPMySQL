@@ -39,7 +39,6 @@ if(isset($_GET["target"])&&isset($_GET["keyword"])){
 
 $stmt->execute();
 $board1_result = $stmt -> get_result();
-$list_board_1_all = $board1_result -> fetch_assoc();
 ?>
 
 
