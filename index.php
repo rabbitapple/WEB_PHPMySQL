@@ -46,7 +46,7 @@ require_once 'tool/session_open.php';
                         <li><a href="board1.php">게시판 1</a></li>
                         <li><a href="#">게시판 2</a></li>
                         <li><a href="#">게시판 3</a></li>
-                        <li><a href="#">게시판 4</a></li>
+                        <li><a href="board2/board2.php">게시판 4</a></li>
                     </ul>
                     
                 </nav>

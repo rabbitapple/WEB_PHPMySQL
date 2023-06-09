@@ -28,13 +28,16 @@ $con->close();
 <html lang="kr">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <link rel="stylesheet" href="/nk/CSS/userfile.css">
+    <title>IQ Spoofing</title>
 </head>
 <body>
-    <h1>User Profile</h1>
+    <h1>IQ Spoofing</h1>
+    <h2>User Profile</h2>
     <p>Username: <?php echo htmlspecialchars($username); ?></p>
     <p>Email: <?php echo htmlspecialchars($email); ?></p>
     <a href="logout.php">Logout</a>
     <a href="index.php">돌아가기</a>
+    <a href="userfileFix.php">비밀번호 및 정보 변경</a>
 </body>
 </html>
