@@ -1,15 +1,15 @@
 <!-- write_1.php -->
 <?php
 session_start();
-// require_once 'tool/chack_er.php';
-require_once "tool/csrftoken_generater.php";
+// require_once '../tool/chack_er.php';
+require_once "../tool/csrftoken_generater.php";
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) { 
     //로그인 확인
 } elseif (!isset($_SESSION['loggedin'])) {   
 ?>
     <script>
         alert('글을 작성하기 위해서는 로그인이 필요합니다.');
-        window.location.href = "board1.php";
+        window.location.href = "./board1.php";
         
     </script>   
     <?php
@@ -23,7 +23,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 <head>
     <meta charset="UTF-8">
     <title>IQ Spoofing</title>
-    <link rel="stylesheet" href="/nk/CSS/write_1.css">
+    <link rel="stylesheet" href="../CSS/write_1.css">
     
 </head>
 <body>
@@ -31,7 +31,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     <h2>글쓰기</h2>
     <hr id = 'nana'>
     <div id = 'content'>
-        <form action='/nk/upload_content_1.php' method='post' enctype='multipart/form-data'>
+        <form action='./upload_content.php' method='post' enctype='multipart/form-data'>
         <!-- <form action="/nk/file_up1.php" method="post" enctype="multipart/form-data"> -->
             <input type="text" name="title" class="text-field" placeholder="제목을 입력해주세요." id="input_title" require>
             <hr>

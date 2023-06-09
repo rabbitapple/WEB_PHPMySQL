@@ -1,10 +1,10 @@
-<!-- dawnloda_File.php -->
+<!-- download_file.php -->
 <?php
 $board_id = $_GET['board_id'];
-$boardNO="1";
+$boardNO=$board_num;
 
 //db 연결
-require_once "tool/db_conn.php";
+require_once "../tool/db_conn.php";
 // require_once 'tool/chack_er.php';
 $file_query = "SELECT * FROM board1_file WHERE boardNO=? AND contentNO=?";
 $stmt = $con -> prepare($file_query);
@@ -38,5 +38,6 @@ if ($file_result->num_rows === 1) {
     echo "<script> alert('파일을 찾을 수 없습니다.');
     window.history.back();
     </script>";
+    exit;
 }
 ?>

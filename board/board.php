@@ -1,10 +1,10 @@
 <?php
-require_once 'tool/db_conn.php';
-// require_once 'tool/chack_er.php';
+require_once '../tool/db_conn.php';
+// require_once '../tool/chack_er.php';
 
 $target=$_GET['target'];
-$keyword=$_GET['keyword'];
-
+$keyword="%" . $_GET['keyword'] . "%";
+$keywordget=$_GET['keyword'];
 
 if(isset($_GET["page"])){
     $page=$_GET['page'];
@@ -15,24 +15,24 @@ if(isset($_GET["page"])){
 
 if(isset($_GET["target"])&&isset($_GET["keyword"])){
     if($_GET["target"]==="all"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE title LIKE ? OR writer LIKE ? OR content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE title LIKE ? OR writer LIKE ? OR content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('sssi', $keyword, $keyword, $keyword, $read);               
     }elseif($_GET["target"]==="title"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE title LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE title LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read);     
     }elseif($_GET["target"]==="content"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE writer LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE writer LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read); 
     }elseif($_GET["target"]==="writer"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 WHERE content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read); 
     }
 }else {
-    $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_1 ORDER BY board_id DESC LIMIT 10 OFFSET ?"; 
+    $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " ORDER BY board_id DESC LIMIT 10 OFFSET ?"; 
     $stmt = $con -> prepare($list_board_1_query);
     $stmt -> bind_param('i', $read); 
 }
@@ -47,14 +47,14 @@ $board1_result = $stmt -> get_result();
 <head>
     <meta charset="UTF-8">
     <title>IQ Spoofing</title>
-    <link rel="stylesheet" href="CSS/board1.css">
+    <link rel="stylesheet" href="../CSS/board1.css">
     
 </head>
 <body>
-    <h1><a href="index.php">IQ Spoofing</a></h1>
-    <h2>게시판1</h2>
+    <h1><a href="../index.php">IQ Spoofing</a></h1>
+    <h2>게시판<?php echo $board_num; ?></h2>
     <div id = search>
-        <form method="GET" action="board1.php">
+        <form method="GET" action="./board.php">
             <select id="target" name="target">
                 <option value ="all">전체</option>
                 <option value ="title">제목</option>
@@ -66,7 +66,7 @@ $board1_result = $stmt -> get_result();
             <input type="submit" value="검색" id="search_btn">
     </div>
     <div class="write-box">
-        <a href="write_1.php" class="write-link">글쓰기</a>
+        <a href="../board<?php echo $board_num; ?>/write.php" class="write-link">글쓰기</a>
     </div>    <br>
     
  
@@ -91,7 +91,7 @@ $board1_result = $stmt -> get_result();
 
                 
 
-                    <tr onclick="location.href='conent.php/?id=<?php echo ($board_id) ?>';">
+                    <tr onclick="location.href='./content.php/?id=<?php echo ($board_id) ?>';">
                         <td><?php echo ($board_id);?></td>
                         <td><?php echo ($title);?></td>
                         <td><?php echo ($writer);?></td>
@@ -105,24 +105,24 @@ $board1_result = $stmt -> get_result();
     <?php
     if(isset($_GET["target"])&&isset($_GET["keyword"])){
         if($_GET["target"]==="all"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE title LIKE ? OR writer LIKE ? OR content LIKE ?";            
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_" . $board_num . " WHERE title LIKE ? OR writer LIKE ? OR content LIKE ?";            
             $stmt = $con -> prepare($total_records_query);
             $stmt -> bind_param('sss', $keyword, $keyword, $keyword); 
         }elseif($_GET["target"]==="title"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE title LIKE ?";
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_" . $board_num . " WHERE title LIKE ?";
             $stmt = $con -> prepare($total_records_query);
             $stmt -> bind_param('s', $keyword); 
         }elseif($_GET["target"]==="content"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1  WHERE writer LIKE ?";
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_" . $board_num . "  WHERE writer LIKE ?";
             $stmt = $con -> prepare($total_records_query);
             $stmt -> bind_param('s', $keyword); 
         }elseif($_GET["target"]==="writer"){
-            $total_records_query = "SELECT COUNT(*) AS total FROM board_1 WHERE content LIKE '?";
+            $total_records_query = "SELECT COUNT(*) AS total FROM board_" . $board_num . " WHERE content LIKE '?";
             $stmt = $con -> prepare($total_records_query);
             $stmt -> bind_param('s', $keyword); 
         }
     }else {
-        $total_records_query = "SELECT COUNT(*) AS total FROM board_1";
+        $total_records_query = "SELECT COUNT(*) AS total FROM board_" . $board_num;
         $stmt = $con -> prepare($total_records_query);        
     }
     $stmt->execute();
@@ -134,9 +134,9 @@ $board1_result = $stmt -> get_result();
 
     $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
     if(isset($_GET['keyword']) && isset($_GET['target'])){
-        $page_adress="/nk/board1.php?target=".$target."&keyword=".$keyword."&page=";
+        $page_adress="./board.php?target=".$target."&keyword=".$keywordget."&page=";
     } else{
-        $page_adress="/nk/board1.php?page=";
+        $page_adress="./board.php?page=";
     }
     
     if($current_page >= 6){
@@ -149,7 +149,7 @@ $board1_result = $stmt -> get_result();
     }else{
         $page_a=$total_pages;
     }
-
+    
     if ($current_page > 1) {
         echo '<a href="' . $page_adress . ($current_page - 1) . '">이전</a>';
     }

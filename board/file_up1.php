@@ -1,7 +1,7 @@
 <!-- file_up1.php -->
 <?php
 $filename = basename($_FILES["fileToUpload"]["name"]);
-// require_once "tool/chack_er.php";
+// require_once "../tool/chack_er.php";
 
 // 파일이 업로드되었는지 확인
 if(empty($_FILES["fileToUpload"]['name'])) {
@@ -44,8 +44,8 @@ if(empty($_FILES["fileToUpload"]['name'])) {
         $filecontent = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
         $filesize = $_FILES["fileToUpload"]["size"];
         $uploader = $_SESSION["name"];
-        $boardNO = "1";
-        $contentNO = $id; //upload_content_1.php에서 정의
+        $boardNO = $board_num;
+        $contentNO = $id; //upload_content.php에서 정의
 
         if(strlen($filename) >= "25"){
             echo "<script> alert('파일 이름의 길이는 확장자명 포함 25자 이내여야 합니다.'); 
@@ -55,7 +55,7 @@ if(empty($_FILES["fileToUpload"]['name'])) {
 
 
         // MySQL 데이터베이스 연결 및 파일 정보 저장
-        require_once "tool/db_conn.php";
+        require_once "../tool/db_conn.php";
 
         if ($con->connect_error) {
             die("Connection failed: " . $con->connect_error);
