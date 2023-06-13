@@ -1,12 +1,4 @@
-
-<html>
-    <head>
-    </head>
-    <body>
-        <form action='/nk/test2.php' method='post' enctype='multipart/form-data'>            
-            <input type="file" name="fileToUpload" id="fileToUpload"> 
-            <input type="submit" value="저장" class="submit-btn" name="submit">
-                 
+<form action='#' method='post'>
+<input type='password' name='CPW' placeholder='Password' id='CPW' require>
+<input type='submit'>
 </form>
-</body>
-</html>

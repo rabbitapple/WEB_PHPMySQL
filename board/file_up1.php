@@ -43,7 +43,7 @@ if(empty($_FILES["fileToUpload"]['name'])) {
         
         $filecontent = file_get_contents($_FILES["fileToUpload"]["tmp_name"]);
         $filesize = $_FILES["fileToUpload"]["size"];
-        $uploader = $_SESSION["name"];
+        $uploader = $writer;
         $boardNO = $board_num;
         $contentNO = $id; //upload_content.php에서 정의
 

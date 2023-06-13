@@ -52,7 +52,7 @@ $board1_result = $stmt -> get_result();
 </head>
 <body>
     <h1><a href="../index.php">IQ Spoofing</a></h1>
-    <h2>게시판<?php echo $board_num; ?></h2>
+    <h2><?php echo $board_name; ?></h2>
     <div id = search>
         <form method="GET" action="./board.php">
             <select id="target" name="target">

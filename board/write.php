@@ -9,7 +9,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 ?>
     <script>
         alert('글을 작성하기 위해서는 로그인이 필요합니다.');
-        window.location.href = "./board1.php";
+        window.location.href = "./board.php";
         
     </script>   
     <?php
