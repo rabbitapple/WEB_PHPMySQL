@@ -4,14 +4,13 @@
 
 <?php
 
-
+require_once '../tool/chack_er.php';
 if (isset($_GET['id'])) {
     if (isset($_GET['delete'])){
         if (isset($_POST['CPW'])){
-            echo "123";
             require_once '../tool/db_conn.php';
             //db연결
-            require_once '../tool/chack_er.php';
+            
             $ID_NUM=$_GET['id'];
 
             $content_query = "SELECT * FROM board_" . $board_num ." WHERE board_id=?";
@@ -28,7 +27,7 @@ if (isset($_GET['id'])) {
                 </script>";
                 exit;
             }
-            if ($content_row['CPW']===$_POST['CPW']){
+            if (password_verify($_POST['CPW'], $content_row['CPW'])){
                 $delete_query = "DELETE FROM board_" . $board_num ." WHERE board_id=?";
                 $stmt = $con -> prepare($delete_query);
                 $stmt -> bind_param('i', $ID_NUM);
@@ -37,19 +36,11 @@ if (isset($_GET['id'])) {
                     $stmt -> execute();
                     echo "<script>alert('글삭제가 완료되었습니다.');
                     window.location.href = './board.php';</script>";
-                    
+                    exit;  
                 }
-                exit;
-
-
+            }
         }else {
-            echo "111";
-            echo "<form action='#' method='post'>
-            <input type='password' name='CPW' placeholder='Password' id='CPW' require>
-            <input type='submit'>
-            </form>";
-        }
-
+            require_once "CPWsubmit.php";
         }
     } else{
         ?><script>
@@ -69,8 +60,6 @@ if (isset($_GET['id'])) {
     exit;
 
 }
-
-
 
 
 

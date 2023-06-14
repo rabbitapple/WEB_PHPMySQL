@@ -2,7 +2,7 @@
 
 if (isset($_GET['id'])) {
     require_once '../tool/db_conn.php';
-    require_once '../tool/chack_er.php';
+    // require_once '../tool/chack_er.php';
     $ID_NUM=$_GET['id'];
 } else {
     echo '오류가 발생하였습니다.';

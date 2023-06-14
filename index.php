@@ -1,57 +1,71 @@
 <?php
 // 세션시작 확인
-require_once 'tool/session_open.php';
+require_once './indexhead.php';
 
 ?>
+<style>
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 100px;
+  }
 
+  .box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-basis: calc(20% - 20px);
+    text-align: center;
+  }
 
+  .text {
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title> IQ Spoofing </title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="font_fi.css">
-        <link rel="stylesheet" href="CSS/index.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <h1><a href='/nk/index.php'>IQ Spoofing</a></h1>
-        <div class="mainpage">               
-            <div class="list">
-            <nav>
-                <?php
-                    if( isset($_SESSION['loggedin'])) { 
-                        echo '<nav>
-                            <ul>
-                                <li><a href="userfile.php">마이페이지</a></li>
-                                <li><a href="logout.php">로그아웃</a></li>
-                            </ul>
-                            
-                        </nav>';
-                    } else if(!isset($_SESSION['loggedin'])) {
-                        echo '<nav>
-                            <ul>
-                                <li><a href="syjdr.html">로그인</a></li>
-                                <li><a href="account_jn.php">회원가입</a></li>
-                            </ul>
-                            
-                        </nav>';
-                    }
-                ?>
-                <nav>
-                    <ul>
-                        <li><a href="./board1/board.php">게시판 1</a></li>
-                        <li><a href="./board2/board.php">게시판 2</a></li>
-                        <li><a href="./board3/board.php">게시판 3</a></li>
-                        <li><a href="./board4/board.php">문의게시판</a></li>
-                    </ul>
-                    
-                </nav>
+  a {
+    color: black;
+    text-decoration: none;
+  }
+</style>
 
-            </div>
-        </div>
-    </body>
-</html>
+<div class="container">
+  <div class="box">
+    <div class="text">
+      <a href="./minigame_1.html">숫자맞추기</a>
+    </div>
+  </div>
+  <div class="box">
+    <div class="text">
+      텍스트 내용 2
+    </div>
+  </div>
+  <div class="box">
+    <div class="text">
+      텍스트 내용 3
+    </div>
+  </div>
+  <div class="box">
+    <div class="text">
+      텍스트 내용 4
+    </div>
+  </div>
+  <div class="box">
+    <div class="text">
+      텍스트 내용 5
+    </div>
+  </div>
+    <div class="box">
+    <div class="text">
+      텍스트 내용 4
+    </div>
+  </div>
+</div>

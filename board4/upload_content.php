@@ -5,6 +5,7 @@
 <?php
 
 require_once "../tool/db_conn.php";    //db연결
+require_once "../tool/chack_er.php"; 
 
     
 
@@ -12,7 +13,8 @@ require_once "../tool/db_conn.php";    //db연결
 $title = $_POST['title'];
 $content = $_POST['content'];
 $writer = $_POST['username']; 
-$content_password = $_POST['CPW'];
+$content_password = password_hash($_POST['CPW'], PASSWORD_DEFAULT);
+
 
 $upload_query = "INSERT INTO board_" . $board_num . " (writer, title, content, regdate, CPW) VALUES(?, ?, ?, NOW(), ?)"; //쿼리문
 $stmt_uq = $con -> prepare($upload_query);
@@ -59,5 +61,3 @@ if ($stmt_uq -> execute()) {
 
 
 ?>
-
-
