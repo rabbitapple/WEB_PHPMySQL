@@ -1,4 +1,4 @@
-<form action='#' method='post'>
-<input type='password' name='CPW' placeholder='Password' id='CPW' require>
-<input type='submit'>
-</form>
+<script>
+alert("글이 존재하지 않습니다.");
+window.location.href="/";
+</script>

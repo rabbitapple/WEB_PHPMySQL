@@ -36,7 +36,7 @@
 <head>
     <meta charset="UTF-8">
     <title>IQ Spoofing</title>
-    <link rel="stylesheet" href="../../CSS/content.css">
+    <link rel="stylesheet" href="../CSS/content.css">
     
 </head>
 <body>

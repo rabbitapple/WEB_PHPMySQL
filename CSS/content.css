@@ -20,7 +20,9 @@ h2 {
     margin-bottom: 1rem;
 }
 
-
+#susen {
+    text-align: center;
+  }
 
 #content {
     background-color: #fff;
@@ -99,3 +101,4 @@ a:not(#change a) {
     font-size: 1.1rem;
     font-weight: bold;
   }
+  

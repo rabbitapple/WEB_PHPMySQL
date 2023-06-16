@@ -15,24 +15,24 @@ if(isset($_GET["page"])){
 
 if(isset($_GET["target"])&&isset($_GET["keyword"])){
     if($_GET["target"]==="all"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE title LIKE ? OR writer LIKE ? OR content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE title LIKE ? OR writer LIKE ? OR content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('sssi', $keyword, $keyword, $keyword, $read);               
     }elseif($_GET["target"]==="title"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE title LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE title LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read);     
     }elseif($_GET["target"]==="content"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE writer LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE writer LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read); 
     }elseif($_GET["target"]==="writer"){
-        $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " WHERE content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read); 
     }
 }else {
-    $list_board_1_query = "SELECT board_id, writer, title, regdate, updatedate FROM board_" . $board_num . " ORDER BY board_id DESC LIMIT 10 OFFSET ?"; 
+    $list_board_1_query = "SELECT * FROM board_" . $board_num . " ORDER BY board_id DESC LIMIT 10 OFFSET ?"; 
     $stmt = $con -> prepare($list_board_1_query);
     $stmt -> bind_param('i', $read); 
 }
@@ -76,6 +76,7 @@ $board1_result = $stmt -> get_result();
                 <th id = "board_id">id</th>
                 <th id = "title">제목</th>
                 <th id = "writer">작성자</th>
+                <th id = "views">조회수</th>
                 <th id = "regdate">작성날짜</th>
                 <th id = "updatedate">수정날짜</th>
             </tr>
@@ -87,7 +88,9 @@ $board1_result = $stmt -> get_result();
                     $writer = htmlspecialchars($list_board_1['writer']);
                     $title = htmlspecialchars($list_board_1['title']);
                     $regdate = htmlspecialchars($list_board_1['regdate']);
-                    $updatedate = htmlspecialchars($list_board_1['updatedate']);?>
+                    $updatedate = htmlspecialchars($list_board_1['updatedate']);
+                    $views = htmlspecialchars($list_board_1['views']);?>
+                    
 
                 
 
@@ -95,6 +98,7 @@ $board1_result = $stmt -> get_result();
                         <td><?php echo ($board_id);?></td>
                         <td><?php echo ($title);?></td>
                         <td><?php echo ($writer);?></td>
+                        <td id="views2"><?php echo ($views);?></td>
                         <td><?php echo ($regdate);?></td>
                         <td><?php echo ($updatedate);?></td>
                     </tr> 
