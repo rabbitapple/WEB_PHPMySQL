@@ -53,7 +53,7 @@ $content_he = htmlspecialchars($content['content']);
         <?php if ($content['updatedate'] != NULL): ?>
             <span id="update">수정일: <?php echo $content['updatedate']; ?></span>
         <?php endif; ?>
-        <span id="date">추천수: <?php echo $content['likes']; ?></span>
+        <span id="date">추천수: <span class="likephp"><?php echo $content['likes']; ?></span></span>
         <span id="update">조회수: <?php echo $content['views']; ?></span>
     </p>
     <hr>
@@ -63,7 +63,7 @@ $content_he = htmlspecialchars($content['content']);
     
     <?php require_once "../BTN/like_btn.php"; ?>
     <br>
-    <span id="md">추천수: <?php echo $content['likes']; ?></span>
+    <span id="md">추천수: <span class="likephp"><?php echo $content['likes']; ?></span></span>
 
     <hr>
             <!-- 게시판에서 파일 목록 표시 -->

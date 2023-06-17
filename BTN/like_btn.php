@@ -29,26 +29,55 @@
         }
     </style>
     <script>
+        var elements;
+        var likes;
+        var clicknum = 0;
+        var text
+        window.onload = function() {
+        elements = document.getElementsByClassName("likephp");
+        text = elements[0].textContent;
+        likes = parseInt(text);
+        };
         function handleLikeClick() {
             if (sessionok===0){
                 alert("로그인이 필요합니다.");
+            }else{
+                likestyle();
+                submitlike();
             }
-            likestyle();
-            submitlike();
         }
         function likestyle() {
+
             var icon = document.querySelector('.like-button i');
             icon.classList.toggle('clicked');
+            clicknum++;
+            
         }
         function submitlike() {
             fetch('../likes.php/?id=<?php echo $ID_NUM ?>');
-            location.reload();
+             // 텍스트를 숫자로 변환
+             
+            if (clicknum % 2 === 0) {
+                elements[0].textContent = likes - 1;
+                elements[1].textContent = likes - 1;
+                likes--;
+            } else {
+                elements[0].textContent = likes + 1; 
+                elements[1].textContent = likes + 1; 
+                likes++;
+            }
+
+            
+
+
+
+            // location.reload();
         }
     </script>
 </head>
 <body>
-    <div id="md" class="like-button" onclick="handleLikeClick()">
-        <i class="far fa-heart"></i>
+    <div id="md" class="like-button">
+        <i class="far fa-heart" onclick="handleLikeClick()"></i>
     </div>
 
 </body>
@@ -58,8 +87,10 @@ require_once '../tool/session_open.php';
 require_once '../tool/db_conn.php';
 // require_once '../tool/chack_er.php';
 if(!$_SESSION['loggedin']){
-    echo "<script> var sessionok = 0;</script>";
-   
+    echo "<script> var sessionok = 0;</script>";   
+}else{
+    echo "<script> var sessionok = 1;</script>";   
+
 }
 
 $ID_NUM = $_GET["id"];
