@@ -76,9 +76,10 @@ $board1_result = $stmt -> get_result();
                 <th id = "board_id">id</th>
                 <th id = "title">제목</th>
                 <th id = "writer">작성자</th>
-                <th id = "views">조회수</th>
                 <th id = "regdate">작성날짜</th>
                 <th id = "updatedate">수정날짜</th>
+                <th id = "views">조회수</th>
+                <th id = "views">추천수</th>
             </tr>
         </thead>
         <tbody>
@@ -89,7 +90,9 @@ $board1_result = $stmt -> get_result();
                     $title = htmlspecialchars($list_board_1['title']);
                     $regdate = htmlspecialchars($list_board_1['regdate']);
                     $updatedate = htmlspecialchars($list_board_1['updatedate']);
-                    $views = htmlspecialchars($list_board_1['views']);?>
+                    $views = htmlspecialchars($list_board_1['views']);
+                    $likes = htmlspecialchars($list_board_1['likes']);?>
+
                     
 
                 
@@ -98,9 +101,10 @@ $board1_result = $stmt -> get_result();
                         <td><?php echo ($board_id);?></td>
                         <td><?php echo ($title);?></td>
                         <td><?php echo ($writer);?></td>
-                        <td id="views2"><?php echo ($views);?></td>
                         <td><?php echo ($regdate);?></td>
                         <td><?php echo ($updatedate);?></td>
+                        <td id="views2"><?php echo ($views);?></td>
+                        <td id="views2"><?php echo ($likes);?></td>
                     </tr> 
                 <?php } ?>
         </tbody>

@@ -45,27 +45,27 @@ require_once './indexhead.php';
   </div>
   <div class="box">
     <div class="text">
-      텍스트 내용 2
+      <a href="#">텍스트</a>
     </div>
   </div>
   <div class="box">
     <div class="text">
-      텍스트 내용 3
+    <a href="#">텍스트</a>
     </div>
   </div>
   <div class="box">
     <div class="text">
-      텍스트 내용 4
+      <a href="#">텍스트</a>
     </div>
   </div>
   <div class="box">
     <div class="text">
-      텍스트 내용 5
+      <a href="#">텍스트</a>
     </div>
   </div>
     <div class="box">
     <div class="text">
-      텍스트 내용 4
+      <a href="#">텍스트</a>
     </div>
   </div>
 </div>

@@ -41,7 +41,7 @@ $content_he = htmlspecialchars($content['content']);
     
 </head>
 <body>
-    <h1><a href="../index.php">IQ Spoofing</a></h1>
+    <h1><a href="../../index.php">IQ Spoofing</a></h1>
     <h2><?php echo ($title);?></h2>   
     <hr>
     <p>        
