@@ -6,35 +6,80 @@ $target=$_GET['target'];
 $keyword="%" . $_GET['keyword'] . "%";
 $keywordget=$_GET['keyword'];
 
-if(isset($_GET["page"])){
+
+if(isset($_GET["sort"])&&$_GET["sort"]!=NULL){
+    if($_GET["sort"]==="writer"||$_GET["sort"]==="title"||$_GET["sort"]==="regdate"||$_GET["sort"]==="updatedate"){
+        $sortget=$_GET['sort'];
+    }
+}else{
+    $sortget="board_id";
+}
+
+if(isset($_GET["ud"])&&$_GET["ud"]!=NULL){
+    if($_GET["ud"]==="DESC"||$_GET["ud"]==="ASC"){
+        $udget=$_GET['ud'];
+    }
+}else{
+    $udget="DESC";
+}
+
+if(isset($_GET["day1"])&&isset($_GET["day2"])&&$_GET["day1"]!=NULL&&$_GET["day2"]!=NULL){
+    $day1=$_GET['day1'];
+    $day2=$_GET['day2'];    
+    
+
+    if ($_GET["target"]==="writer"||$_GET["target"]==="content"||$_GET["target"]==="title"||$_GET["target"]==="all"){
+        if($sortget==="updatedate"){
+            $day12="AND updatedate BETWEEN ? AND ?";
+        }else{
+            $day12="AND regdate BETWEEN ? AND ?";
+        }
+    }else{
+        if($sortget==="updatedate"){
+            $day12="WHERE updatedate BETWEEN ? AND ?";
+        }else{
+            $day12="WHERE regdate BETWEEN ? AND ?";
+        }
+    }
+
+}else{
+    $day12=NULL;
+}
+
+if(isset($_GET["page"])&&$_GET["page"]!=NULL){
     $page=$_GET['page'];
     $read=($page - 1) * 10;
-}elseif(!isset($_GET["page"])){
+}else{
     $read=0;
 }
 
 if(isset($_GET["target"])&&isset($_GET["keyword"])){
     if($_GET["target"]==="all"){
-        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE title LIKE ? OR writer LIKE ? OR content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE (title LIKE ? OR writer LIKE ? OR content LIKE ?) " . (string)$day12 . " ORDER BY " . $sortget . " " . $udget . " LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('sssi', $keyword, $keyword, $keyword, $read);               
     }elseif($_GET["target"]==="title"){
-        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE title LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE title LIKE ? " . (string)$day12 . " ORDER BY " . $sortget . " " . $udget . " LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read);     
     }elseif($_GET["target"]==="content"){
-        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE writer LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE writer LIKE ? " . (string)$day12 . " ORDER BY " . $sortget . " " . $udget . " LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read); 
     }elseif($_GET["target"]==="writer"){
-        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE content LIKE ? ORDER BY board_id DESC LIMIT 10 OFFSET ?";
+        $list_board_1_query = "SELECT * FROM board_" . $board_num . " WHERE content LIKE ? " . (string)$day12 . " ORDER BY " . $sortget . " " . $udget . " LIMIT 10 OFFSET ?";
         $stmt = $con -> prepare($list_board_1_query);
         $stmt -> bind_param('si', $keyword, $read); 
     }
 }else {
-    $list_board_1_query = "SELECT * FROM board_" . $board_num . " ORDER BY board_id DESC LIMIT 10 OFFSET ?"; 
+    $list_board_1_query = "SELECT * FROM board_" . $board_num . " " . (string)$day12 . " ORDER BY " . $sortget . " " . $udget . " LIMIT 10 OFFSET ?"; 
     $stmt = $con -> prepare($list_board_1_query);
-    $stmt -> bind_param('i', $read); 
+
+    if(isset($_GET["day1"])&&isset($_GET["day2"])&&$_GET["day1"]!=NULL&&$_GET["day2"]!=NULL){
+        $stmt -> bind_param('ssi', $day1, $day2, $read); 
+    }else{
+        $stmt -> bind_param('i', $read); 
+    }
 }
 
 $stmt->execute();
@@ -53,7 +98,7 @@ $board1_result = $stmt -> get_result();
 <body>
     <h1><a href="../index.php">IQ Spoofing</a></h1>
     <h2><?php echo $board_name; ?></h2>
-    <div id = search>
+    <div id = "search">
         <form method="GET" action="./board.php">
             <select id="target" name="target">
                 <option value ="all">전체</option>
@@ -61,10 +106,30 @@ $board1_result = $stmt -> get_result();
                 <option value ="content">내용</option>
                 <option value ="writer">작성자</option>
             </select>
-
             <input type="text" id="keyword" name="keyword">
             <input type="submit" value="검색" id="search_btn">
+            <div id="fold">
+                <details>
+                    <summary>세부검색 및 정렬변경</summary>                    
+                    <select id="sort" name="sort">
+                        <option value ="regdate">작성일</option>
+                        <option value ="updatedate">수정일</option>
+                        <option value ="writer">작성자</option>
+                        <option value ="title">제목</option>                        
+                    </select>
+                    <select id="ud" name="ud">
+                        <option value ="DESC">내림차순</option>
+                        <option value ="ASC">오름차순</option>
+                    </select>            
+                    <input type="date" id="day1" name="day1">
+                    <input type="date" id="day2" name="day2">
+                    <input type="submit" value="검색" id="search_btn">                    
+                </details>
+                </div>
+        </form>
     </div>
+    
+
     <div class="write-box">
         <a href="../board<?php echo $board_num; ?>/write.php" class="write-link">글쓰기</a>
     </div>    <br>

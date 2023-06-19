@@ -1,3 +1,4 @@
+<!-- likes.php -->
 <?php
 require_once '../tool/session_open.php';
 
