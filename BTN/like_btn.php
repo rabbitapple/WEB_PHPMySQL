@@ -1,6 +1,5 @@
 <html>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 
 <html>
@@ -54,7 +53,7 @@
             
         }
         function submitlike() {
-            fetch('../likes.php/?id=<?php echo $ID_NUM ?>');
+            fetch('../likes.php/?id=<?php echo (htmlspecialchars($ID_NUM)) ?>');
              // 텍스트를 숫자로 변환
              
             if (clicknum % 2 === 0) {

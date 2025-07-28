@@ -1,0 +1,9 @@
+<script>
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: '792949497631-fbkfjrq3pdjfk4gqphi7730s8t250ll9.apps.googleusercontent.com',
+      callback: handleCredentialResponse
+    });
+    google.accounts.id.prompt();
+  };
+</script>

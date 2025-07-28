@@ -1,0 +1,7 @@
+{
+    "require": {
+        "sonata-project/google-authenticator": "^2.3",
+        "phpgangsta/googleauthenticator": "dev-master",
+        "jumbojett/openid-connect-php": "^1.0"
+    }
+}

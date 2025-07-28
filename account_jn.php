@@ -6,9 +6,8 @@
     <link rel="stylesheet" href="CSS/account_jn.css">
     <link rel="stylesheet" href="font_fi.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-    <script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" integrity="sha384-+xfQsLQeLUrjxXmn3ZNQZxMuwZTGVOrUlLvMEWsR9CAcZljXYYLtzdQN7HecUuqR" crossorigin="anonymous">
+	<script>
         function openadress() {
             
             window.open("adress_serch.php", "_blank", "width=500,height=400,top=50%,left=50%,margin-top=-200px,margin-left=-250px");
@@ -25,10 +24,10 @@
         <input type="text" name="username" required>
         <br>
         <label>비밀번호</label>
-        <input type="password" name="password" required>
+        <input type="password" name="password" autocomplete="off" required>
         <br>
         <label>비밀번호 확인</label>
-        <input type="password" name="confirm_password" required>
+        <input type="password" name="confirm_password" autocomplete="off" required>
         <br>
         <label>이메일</label>
         <input type="email" name="email" required>

@@ -1,0 +1,86 @@
+<!-- <?php
+  error_reporting( E_ALL );
+  ini_set( "display_errors", 1 );
+?> -->
+
+
+<?php
+if (!isset($_SESSION['loggedin'])) {
+        require_once "tool/session_open.php";
+        unset($_SESSION['loggedin']);
+        unset($_SESSION['name']);
+        unset($_SESSION['id']);
+
+};
+session_unset();
+session_destroy();
+
+setcookie("PHPSESSID", "", 1);
+session_start();
+session_regenerate_id(true);
+  
+require_once __DIR__ . '/vendor/autoload.php'; // 정확한 상대경로
+
+use Sonata\GoogleAuthenticator\GoogleAuthenticator;
+
+$userInputCode = $_POST['otp']; // 사용자가 입력한 6자리 코드
+$g = new GoogleAuthenticator();
+
+
+$secret = "IPKWUFD5SUV74IRG";
+$isValid = $g->checkCode($secret, $userInputCode); // $secret은 DB에서 가져온 값
+ 
+require_once 'tool/db_conn.php'; 
+// //디버깅 마지막 연결 호출의 오류 반환
+if ( mysqli_connect_errno() ) {
+	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
+}       
+
+if ( !isset($_POST['username']) ) {
+	// 오류메시지
+	exit('ID를 입력하세요');
+}
+
+// 준비
+		if ($isValid == True) {
+			echo "인증 성공!";
+                        session_start();
+                        $_SESSION['loggedin'] = TRUE;
+                        $_SESSION['name'] = $_POST['username'];
+                        $_SESSION['id'] = $id;
+                        header('Location: index.php');
+
+
+		} else {
+    			echo "인증 실패!";
+
+		}
+			#session_start();
+			#$_SESSION['loggedin'] = TRUE;
+			#$_SESSION['name'] = $_POST['username']; 
+			#$_SESSION['id'] = $id;
+			#header('Location: syjdr.html');
+
+
+
+
+
+
+
+/*
+if ($isValid) {
+    echo "인증 성공!";
+                        session_start();
+                        $_SESSION['loggedin'] = TRUE;
+                        $_SESSION['name'] = $_POST['username'];
+                        $_SESSION['id'] = $id;
+                        header('Location: index.php');
+
+
+} else {
+    echo "인증 실패!";
+}
+
+
+*/
+?>

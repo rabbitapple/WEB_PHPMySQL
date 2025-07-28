@@ -15,7 +15,7 @@ require_once 'tool/session_open.php';
         <link rel="stylesheet" href="CSS/index.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" integrity="sha384-+xfQsLQeLUrjxXmn3ZNQZxMuwZTGVOrUlLvMEWsR9CAcZljXYYLtzdQN7HecUuqR" crossorigin="anonymous">
     </head>
     <body>
         <h1><a href='/nk/index.php'>IQ Spoofing</a></h1>

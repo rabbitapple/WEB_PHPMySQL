@@ -45,7 +45,7 @@ if (isset($_GET['id'])) {
     } else{
         ?><script>
         if (confirm('정말로 글을 삭제하시겠습니까?')) {
-            window.location.href = './delete_content.php?delete=true&id=<?php echo $_GET["id"];?>';
+            window.location.href = './delete_content.php?delete=true&id=<?php echo (htmlspecialchars ($_GET["id"]);?>';
             //글삭제 확인
         } else {
             history.back();

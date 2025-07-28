@@ -3,7 +3,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-$DATABASE_HOST = 'localhost';
+$DATABASE_HOST = '192.168.0.37';
 $DATABASE_USER = 'rabbit';
 $DATABASE_PASS = '1234';
 $DATABASE_NAME = 'phplogin';

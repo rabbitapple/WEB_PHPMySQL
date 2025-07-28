@@ -5,6 +5,21 @@
 
 
 <?php
+if (!isset($_SESSION['loggedin'])) {
+        require_once "tool/session_open.php";
+        unset($_SESSION['loggedin']);
+        unset($_SESSION['name']);
+        unset($_SESSION['id']);
+
+};
+session_unset();
+session_destroy();
+
+setcookie("PHPSESSID", "", 1);
+session_start();
+session_regenerate_id(true);
+  
+  
 require_once 'tool/db_conn.php'; 
 // //디버깅 마지막 연결 호출의 오류 반환
 if ( mysqli_connect_errno() ) {
@@ -35,12 +50,14 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 		if (password_verify($_POST['password'], $hashed_password)) { //해시된 암호와 비교
 			// 인증성공시 로그인
 			//세션 생성. 사용자 로그인 확인. 쿠키와 같이 작동하나 서버 데이터를 기억함.
-			
-			session_start();
-			$_SESSION['loggedin'] = TRUE;
-			$_SESSION['name'] = $_POST['username']; 
-			$_SESSION['id'] = $id;
-			header('Location: index.php');
+				
+
+			require_once "./gen_qrotp.php"; 
+			//session_start();
+			//$_SESSION['loggedin'] = TRUE;
+			//$_SESSION['name'] = $_POST['username']; 
+			//$_SESSION['id'] = $id;
+			//header('Location: index.php');
 		} else {
 			// 잘못된 비밀번호
 			echo '안타깝군요! 다시 도전해보세요.ㅎㅎ<br><a href=syjdr.html>돌아가기</a>';

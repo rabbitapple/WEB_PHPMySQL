@@ -47,10 +47,10 @@ $con->close();
         <form action='/nk/userfile_upload.php' method='post' id ="content">
             <p name="UID" class="UID" id="UID" >Username: <?php echo htmlspecialchars($username); ?></p>            
             <label id="Text">비밀번호 : </label>
-            <input type="password" name="UPW" class="UPW" placeholder="비밀번호" id="UPW" require>
+	    <input type="password" name="UPW" class="UPW" autocomplete="off" placeholder="비밀번호" id="UPW" require>
             <br>
             <label id="Text">비밀번호 확인 : </lable>
-            <input type="password" name="UPWC" class="UPWC" placeholder="비밀번호 확인" id="UPWC" require>
+            <input type="password" name="UPWC" class="UPWC" autocomplete="off" placeholder="비밀번호 확인" id="UPWC" require>
             <br>
             <label id="Text">Email : </label>
             <input type="email" name="email" class="email" placeholder="email" id="email" require>
